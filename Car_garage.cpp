@@ -128,6 +128,122 @@ public:
     }
   }
 
+  void edit(int id)
+  {
+    node *temp = head;
+    while (temp != nullptr)
+    {
+      if (temp->id == id)
+      {
+        cout << "Choose The Option" << endl;
+        cout << "1. Name" << endl;
+        cout << "2. Price" << endl;
+        cout << "3. Color" << endl;
+        cout << "4. Mileage" << endl;
+        cout << "5. Rating" << endl;
+        cout << "6. Electric" << endl;
+        cout << "7. Wheels" << endl;
+        cout << "9. Update all fields" << endl;
+        cout << "0. Exit" << endl;
+
+        int option;
+        cin >> option;
+
+        switch (option)
+        {
+        case 1:
+        {
+          string newName;
+          cin >> newName;
+          temp->name = newName;
+          cout << "Name updated successfully." << endl;
+          break;
+        }
+        case 2:
+        {
+          int newPrice;
+          cin >> newPrice;
+          temp->price = newPrice;
+          cout << "Price updated successfully." << endl;
+          break;
+        }
+        case 3:
+        {
+          string newColor;
+          cin >> newColor;
+          temp->color = newColor;
+          cout << "Color updated successfully." << endl;
+          break;
+        }
+        case 4:
+        {
+          double newMileage;
+          cin >> newMileage;
+          temp->mileage = newMileage;
+          cout << "Mileage updated successfully." << endl;
+          break;
+        }
+        case 5:
+        {
+          double newRating;
+          cin >> newRating;
+          temp->rating = newRating;
+          cout << "Rating updated successfully." << endl;
+          break;
+        }
+        case 6:
+        {
+          bool newElectric;
+          cin >> newElectric;
+          temp->isElectric = newElectric;
+          cout << "Electric updated successfully." << endl;
+          break;
+        }
+        case 7:
+        {
+          int newWheels;
+          cin >> newWheels;
+          temp->wheels = newWheels;
+          cout << "Wheels updated successfully." << endl;
+          break;
+        }
+        case 9:
+        {
+          string newName, newColor;
+          int newPrice, newWheels;
+          double newRating, newMileage;
+          bool newElectric;
+
+          cout << "Enter new values in the following pattern:" << endl;
+          cout << "name price color mileage rating isElectric wheels" << endl;
+
+          cin >> newName >> newPrice >> newColor >> newMileage >> newRating >> newElectric >> newWheels;
+
+          temp->name = newName;
+          temp->price = newPrice;
+          temp->color = newColor;
+          temp->mileage = newMileage;
+          temp->rating = newRating;
+          temp->isElectric = newElectric;
+          temp->wheels = newWheels;
+
+          cout << "All fields updated successfully." << endl;
+          break;
+        }
+        case 0:
+        {
+          return;
+        }
+        default:
+          cout << "Invalid option. Please try again." << endl;
+          break;
+        }
+      }
+      temp = temp->next;
+    }
+    cout << "Car not found with ID: " << id << endl;
+  }
+
   ~car()
   {
     while (head != nullptr)
@@ -148,7 +264,7 @@ int main()
   garage.in(2, 25000, "Honda", "Blue", 28.3, 4.5, true, 4);
   garage.in(3, 30000, "Ford", "Black", 22.1, 4.0, false, 2);
   garage.in(4, 35000, "BMW", "White", 20.7, 4.8, true, 4);
-  garage.in(4, 35000, "BMW", "White", 20.7, 4.8, true, 4);
+  garage.in(5, 35000, "Audi", "Silver", 18.9, 4.6, true, 4);
 
   cout << "List of cars in the garage:" << endl;
   garage.list();
@@ -160,6 +276,11 @@ int main()
   garage.remove(1);
 
   cout << "\nList of cars after removal:" << endl;
+  garage.list();
+
+  cout << "\nEditing car with ID 4" << endl;
+  garage.edit(4);
+  cout << "\nList of cars after Update:" << endl;
   garage.list();
 
   return 0;
