@@ -1,40 +1,105 @@
+Detailed description of my project "Vehicle Management System," according to the given code : 
 
-### 1. Encapsulation:
-- **Usage**: Encapsulation is evident in the classes `node` and `car`.
-  - In the `node` class:
-    - Private member variables (`id`, `price`, `name`, `color`, `mileage`, `rating`, `isElectric`, `wheels`) encapsulate the internal state of a car node.
-    - Constructor (`node(int id, int price, string name, string color, double mileage, double rating, bool isElectric, int wheels)`) encapsulates the process of initializing a car node.
-  - In the `car` class:
-    - Private member variable (`head`) encapsulates the head of the linked list of car nodes.
-    - Member functions (`isDuplicateID()`, `in()`, `get()`, `remove()`, `list()`) encapsulate operations related to managing the car garage.
+## Project: Vehicle Management System
 
-### 2. Abstraction:
-- **Usage**: Abstraction is employed to hide complex implementation details and provide a simple interface for interacting with objects.
-  - In the `car` class:
-    - Member functions (`in()`, `get()`, `remove()`, `list()`) abstract away the details of linked list manipulation, allowing users to interact with the garage without needing to understand its internal structure.
-    - Users interact with the `car` object using high-level operations such as adding, retrieving, removing, and listing cars, without needing to know how these operations are implemented internally.
+### Objective:
+The Vehicle Management System (VMS) is designed to manage a collection of vehicles in a garage. It allows users to insert, display, edit, and remove vehicles from the garage. The system ensures data encapsulation, inheritance, and polymorphism to create a robust and maintainable codebase.
 
-### 3. Modularity:
-- **Usage**: The code is organized into modular units (classes and functions), promoting code reusability and maintainability.
-  - Each class (`node` and `car`) encapsulates related functionality within itself.
-  - Each member function in the `car` class performs a specific task, promoting a clear separation of concerns.
+### Components:
+1. **Vehicle Class**:
+   - **Attributes**: ID, Price, Name, Color, Mileage, Rating, Electric (boolean), Wheels.
+   - **Methods**:
+     - Constructor to initialize vehicle attributes.
+     - `display()` to output vehicle details.
+     - Getter methods to access protected attributes.
+     - `updateAttributes()` to update vehicle details.
 
-### 4. Constructors and Destructors:
-- **Usage**: Constructors are used to initialize objects of the `node` class with specific values. Destructors ensure proper cleanup of dynamically allocated memory.
-  - Constructor: `node(int id, int price, string name, string color, double mileage, double rating, bool isElectric, int wheels)`
-  - Destructor: `~car()`
+2. **Car Class**:
+   - Inherits from `Vehicle` class.
+   - Utilizes the base class constructor to initialize car-specific attributes.
 
-### 5. Modifiers and Accessors:
-- **Usage**: Getters and setters are not explicitly defined in the code, but member functions like `in()`, `get()`, `remove()`, and `list()` serve as accessors and modifiers to interact with the internal state of the `car` class.
+3. **Node Class**:
+   - Represents a node in a linked list.
+   - Contains a `Vehicle` pointer and a pointer to the next `Node`.
 
-### 6. Object Instantiation and Usage:
-- **Usage**: Objects of the `car` class (`garage`) are instantiated and used to manage the car garage system.
-  - Objects are created using the default constructor: `car garage;`.
-  - Member functions of the `car` class are invoked on the `garage` object to perform operations like adding, retrieving, and removing cars.
+4. **Garage Class**:
+   - Manages a collection of vehicles using a singly linked list of `Node` objects.
+   - **Methods**:
+     - `insertVehicle()`: Adds a new vehicle to the list if its ID is unique.
+     - `isDuplicateID()`: Checks for duplicate vehicle IDs.
+     - `displayVehicle()`: Displays details of a vehicle by ID.
+     - `removeVehicle()`: Removes a vehicle by ID.
+     - `listVehicles()`: Lists all vehicles in the garage.
+     - `editVehicle()`: Allows editing of a vehicle's attributes by ID.
+   - Destructor to clean up dynamically allocated memory.
 
-### 7. Dynamic Memory Allocation:
-- **Usage**: Dynamic memory allocation is used to create and manage linked list nodes.
-  - `new` operator is used to dynamically allocate memory for new nodes in the `in()` method.
-  - `delete` operator is used to deallocate memory for nodes in the destructor (`~car()`).
+### Features:
+1. **Encapsulation**:
+   - Protected members in the `Vehicle` class ensure that vehicle attributes are not directly accessible from outside the class.
+   - Public getter methods provide controlled access to these attributes.
 
-Overall, the code demonstrates the effective use of object-oriented programming concepts such as encapsulation, abstraction, modularity, constructors/destructors, modifiers/accessors, object instantiation, and dynamic memory allocation to implement a car garage system. These concepts contribute to code organization, reusability, and maintainability.
+2. **Inheritance**:
+   - The `Car` class inherits from the `Vehicle` class, demonstrating a simple inheritance model.
+
+3. **Polymorphism**:
+   - The `display()` method in the `Vehicle` class is virtual, allowing derived classes to override it if needed.
+   - The `Garage` class uses polymorphism to handle vehicles of different types uniformly.
+
+### Functionality:
+1. **Inserting Vehicles**:
+   - Vehicles can be added to the garage with unique IDs.
+   - Duplicate IDs are not allowed.
+
+2. **Displaying Vehicles**:
+   - Details of a specific vehicle can be displayed using its ID.
+   - All vehicles in the garage can be listed.
+
+3. **Editing Vehicles**:
+   - Vehicles' attributes (name, price, color, mileage, rating, electric, wheels) can be edited by their ID.
+   - Provides options to update individual attributes or all attributes at once.
+
+4. **Removing Vehicles**:
+   - Vehicles can be removed from the garage by their ID.
+
+### Sample Usage:
+- Insert several vehicles into the garage.
+- Display the details of a specific vehicle.
+- List all vehicles in the garage.
+- Remove a vehicle by ID and confirm its removal by listing vehicles again.
+- Edit a vehicle's attributes and confirm the updates by listing vehicles again.
+
+### Code Usage Example:
+```cpp
+int main() {
+    Garage garage;
+
+    // Sample usage
+    garage.insertVehicle(new Car(1, 20000, "Toyota", "Red", 25.5, 4.2, false, 4));
+    garage.insertVehicle(new Car(2, 25000, "Honda", "Blue", 28.3, 4.5, true, 4));
+    garage.insertVehicle(new Car(3, 30000, "Ford", "Black", 22.1, 4.0, false, 2));
+    garage.insertVehicle(new Car(4, 35000, "BMW", "White", 20.7, 4.8, true, 4));
+    garage.insertVehicle(new Car(5, 35000, "Audi", "Silver", 18.9, 4.6, true, 4));
+
+    cout << "List of cars in the garage:" << endl;
+    garage.listVehicles();
+
+    cout << "\nDetails of car with ID 2:" << endl;
+    garage.displayVehicle(2);
+
+    cout << "\nRemoving car with ID 1..." << endl;
+    garage.removeVehicle(1);
+
+    cout << "\nList of cars after removal:" << endl;
+    garage.listVehicles();
+
+    cout << "\nEditing car with ID 4" << endl;
+    garage.editVehicle(4);
+    cout << "\nList of cars after update:" << endl;
+    garage.listVehicles();
+
+    return 0;
+}
+```
+
+### Summary:
+The Vehicle Management System effectively demonstrates the use of object-oriented programming concepts such as encapsulation, inheritance, and polymorphism. It provides a comprehensive solution for managing a collection of vehicles, allowing for easy addition, modification, display, and removal of vehicle records.
